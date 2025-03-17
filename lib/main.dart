@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Flutter Demo',
         theme: ThemeData(
           shadowColor: AppTheme.primaryColor,
-
+          backgroundColor: AppTheme.primaryColor,
           colorSchemeSeed: AppTheme.primaryColor,
           useMaterial3: true,
         ),
