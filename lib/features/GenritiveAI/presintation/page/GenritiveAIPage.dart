@@ -34,22 +34,61 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
         alignment: Alignment.bottomLeft,
         child: Padding(
           padding: EdgeInsets.only(left: 30.0, bottom: 20.0),
-          child: FloatingActionButton(
-            backgroundColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                CustomPageRoute(
-                  child: StoryGenSettings(index: 0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.purple.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 8,
+                  offset: Offset(0, 3),
                 ),
-              );
-            },
-            child: SizedBox(
-              width: 60,
-              height: 60,
-              child: Lottie.asset(
-                "assets/json/create_ai.json",
-                fit: BoxFit.cover,
+              ],
+            ),
+            child: FloatingActionButton.extended(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  CustomPageRoute(
+                    child: StoryGenSettings(index: 0),
+                  ),
+                );
+              },
+              isExtended: true,
+              label: Text(
+                "أنشئ قصة",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              icon: Container(
+                width: 60,
+                height: 60,
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFFFF7BCA), // Pink
+                      Color(0xFF9C27B0), // Purple
+                    ],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                  borderRadius: BorderRadius.circular(30),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                ),
+                child: Lottie.asset(
+                  "assets/json/create_ai.json",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
