@@ -10,6 +10,8 @@
 .svn/
 migrate_working_dir/
 assets/test_service_account.json
+
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -42,6 +44,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# FVM Version Cache
-.fvm/
