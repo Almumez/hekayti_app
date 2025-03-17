@@ -3,6 +3,7 @@ import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/gen/assets.gen.dart';
 import 'package:hikayati_app/core/widgets/CustomPageRoute.dart';
+import 'package:hikayati_app/features/GenritiveAI/presintation/page/GenritiveAIStoryPage.dart';
 import 'package:hikayati_app/features/GenritiveAI/presintation/page/StoryGenSettings.dart';
 import 'package:lottie/lottie.dart';
 
@@ -155,18 +156,14 @@ class DemoStoryCard extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        // Show dialog indicating this is a demo
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('قصة تجريبية', style: AppTheme.textTheme.headlineMedium),
-            content: Text('هذه قصة تجريبية للعرض فقط. انقر على زر الإنشاء في الزاوية اليسرى السفلية لإنشاء قصة جديدة', style: AppTheme.textTheme.bodyLarge),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('حسناً', style: TextStyle(color: AppTheme.primaryColor, fontWeight: FontWeight.bold)),
-              ),
-            ],
+        // Navigate to the GenritiveAIStoryPage with this story
+        Navigator.push(
+          context,
+          CustomPageRoute(
+            child: GenritiveAIStoryPage(
+              storyTitle: name,
+              storyImage: imageAsset,
+            ),
           ),
         );
       },
