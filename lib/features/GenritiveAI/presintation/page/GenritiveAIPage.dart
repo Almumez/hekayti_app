@@ -6,6 +6,12 @@ import 'package:hikayati_app/core/widgets/CustomPageRoute.dart';
 import 'package:hikayati_app/features/GenritiveAI/presintation/page/GenritiveAIStoryPage.dart';
 import 'package:hikayati_app/features/GenritiveAI/presintation/page/StoryGenSettings.dart';
 import 'package:lottie/lottie.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hikayati_app/core/widgets/TutorialWidget.dart';
+import 'package:hikayati_app/core/util/CharactersList.dart';
+import 'package:hikayati_app/core/util/Common.dart';
+import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
 class GenritiveAIPage extends StatefulWidget {
   const GenritiveAIPage({Key? key}) : super(key: key);
@@ -27,6 +33,78 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
     {'name': 'أبطال المدينة', 'image': 'assets/images/demo/heroes.png'},
   ];
 
+  // For Tutorial
+  GlobalKey keyCreateStory = GlobalKey();
+  List<TargetFocus> targets = [];
+  TutorialCoachMark? tutorialCoachMark;
+  bool tautorial = false;
+  SharedPreferences? prefs;
+  UserModel? userModel;
+  CharactersList charactersListObj = CharactersList();
+
+  @override
+  void initState() {
+    super.initState();
+    initUser();
+    initTutorial();
+  }
+
+  initUser() async {
+    userModel = await getCachedData(
+      key: 'UserInformation',
+      retrievedDataType: UserModel.init(),
+      returnType: UserModel,
+    );
+    setState(() {});
+  }
+
+  initTutorial() async {
+    prefs = await SharedPreferences.getInstance();
+    tautorial = await prefs?.getBool("aiTutorial") ?? false;
+    
+    if (!tautorial && userModel != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showTutorial();
+      });
+    }
+  }
+
+  showTutorial() async {
+    targets = [
+      TargetFocus(
+        identify: "createStoryButton",
+        keyTarget: keyCreateStory,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            child: TutorialWidget(
+              index: 1,
+              onTap: () {
+                tutorialCoachMark!.finish();
+              },
+              text: "هنا يمكنك إنشاء قصتك الخاصة باستخدام الذكاء الاصطناعي! اضغط على هذا الزر وأطلق العنان لخيالك",
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
+            )
+          )
+        ]
+      ),
+    ];
+
+    tutorialCoachMark = TutorialCoachMark(
+      hideSkip: true,
+      targets: targets,
+      onFinish: () async {
+        prefs = await SharedPreferences.getInstance();
+        prefs!.setBool("aiTutorial", true);
+        setState(() {
+          tautorial = true;
+        });
+      }
+    );
+    
+    tutorialCoachMark!.show(context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
@@ -36,6 +114,7 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
         child: Padding(
           padding: EdgeInsets.only(left: 30.0, bottom: 20.0),
           child: Container(
+            key: keyCreateStory,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               boxShadow: [
