@@ -168,7 +168,7 @@ class _AIStoryPageState extends State<AIStoryPage> {
       },
       child: Scaffold(
         body: BlocProvider(
-          create: (context) => sl<AIStoryBloc>()..add(GetAIStory(storyId: widget.storyId)),
+          create: (context) => sl<AIStoryBloc>(),
           child: BlocConsumer<AIStoryBloc, AIStoryState>(
             listener: (context, state) {
               if (state is AIStoryLoaded) {
@@ -453,7 +453,11 @@ class _AIStoryPageState extends State<AIStoryPage> {
                   ),
                 );
               }
-              
+
+              if (state is AIStoryInitial) {
+                BlocProvider.of<AIStoryBloc>(context)
+                    .add(GetAIStory(storyId: '1'));
+              }
               return Container(); // Default empty container
             },
           ),

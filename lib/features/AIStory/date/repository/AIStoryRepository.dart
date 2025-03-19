@@ -24,7 +24,7 @@ class AIStoryRepository extends Repository {
       checkConnection: networkInfo.isConnected,
       remoteFunction: () async {
         final AIStoryModel remoteData = await remoteDataProvider.getData(
-          url: "${DataSourceURL.getAIStorySlides}/$storyId",
+          url: "${DataSourceURL.getAIStorySlides}$storyId",
           retrievedDataType: AIStoryModel.init(),
           returnType: AIStoryModel,
         );
