@@ -311,10 +311,13 @@ class StoryAICard extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Text(
-              name,
-              style: AppTheme.textTheme.headlineSmall,
-              textAlign: TextAlign.center,
+            SizedBox(
+              width: 150,
+              child: Text(
+                name,
+                style: AppTheme.textTheme.headlineSmall,
+                textAlign: TextAlign.center,
+              ),
             ),
           ],
         ),
