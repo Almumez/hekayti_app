@@ -82,84 +82,84 @@ class _PageFourState extends State<PageFour> {
                       text: 'مثال  :  محمد',
                       type: TextInputType.text,
                     ),
-
-                    Text('قم برفع صورة بطل قصتك:',
-                        style: AppTheme.textTheme.displaySmall),
-                    SizedBox(
-                      height: screenUtil.screenHeight * .05,
-                    ),
-                    Container(
-                      width: 200,
-                      child: InkWell(
-                        onTap: () async {
-                          final ImagePicker _picker = ImagePicker();
-                          final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-                          
-                          if (image != null) {
-                            setState(() {
-                              selectedImagePath = image.path;
-                            });
-                            showImagesDialog(
-                              context,
-                              Assets.images.Characters.hasham.happy.path,
-                              'تم اختيار الصورة بنجاح',
-                              () {
-                                Navigator.pop(context);
-                              },
-                            );
-                          }
-                        },
-                        child: selectedImagePath != null
-                            ? Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: AppTheme.primaryColor,
-                                    width: 3,
-                                  ),
-                                ),
-                                child:CircleAvatar(
-                                  backgroundImage: FileImage(
-                                    File(selectedImagePath!),
-
-                                  ),
-                                ),
-                              )
-                            : Container(
-                                height: 100,
-                                width: 100,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    width: 3,
-                                    color: AppTheme.primarySwatch.shade200,
-                                  ),
-                                ),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.add_photo_alternate,
-                                      color: AppTheme.primaryColor,
-                                      size: 30,
-                                    ),
-                                    SizedBox(height: 5),
-                                    Text(
-                                      'اختر صورة',
-                                      style: TextStyle(
-                                        fontFamily: AppTheme.fontFamily,
-                                        color: AppTheme.primaryColor,
-                                        fontSize: 10,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                      ),
-                    ),
+                    //
+                    // Text('قم برفع صورة بطل قصتك:',
+                    //     style: AppTheme.textTheme.displaySmall),
+                    // SizedBox(
+                    //   height: screenUtil.screenHeight * .05,
+                    // ),
+                    // Container(
+                    //   width: 200,
+                    //   child: InkWell(
+                    //     onTap: () async {
+                    //       final ImagePicker _picker = ImagePicker();
+                    //       final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                    //
+                    //       if (image != null) {
+                    //         setState(() {
+                    //           selectedImagePath = image.path;
+                    //         });
+                    //         showImagesDialog(
+                    //           context,
+                    //           Assets.images.Characters.hasham.happy.path,
+                    //           'تم اختيار الصورة بنجاح',
+                    //           () {
+                    //             Navigator.pop(context);
+                    //           },
+                    //         );
+                    //       }
+                    //     },
+                    //     child: selectedImagePath != null
+                    //         ? Container(
+                    //             height: 100,
+                    //             width: 100,
+                    //             decoration: BoxDecoration(
+                    //               shape: BoxShape.circle,
+                    //               border: Border.all(
+                    //                 color: AppTheme.primaryColor,
+                    //                 width: 3,
+                    //               ),
+                    //             ),
+                    //             child:CircleAvatar(
+                    //               backgroundImage: FileImage(
+                    //                 File(selectedImagePath!),
+                    //
+                    //               ),
+                    //             ),
+                    //           )
+                    //         : Container(
+                    //             height: 100,
+                    //             width: 100,
+                    //             decoration: BoxDecoration(
+                    //               color: Colors.white,
+                    //               shape: BoxShape.circle,
+                    //               border: Border.all(
+                    //                 width: 3,
+                    //                 color: AppTheme.primarySwatch.shade200,
+                    //               ),
+                    //             ),
+                    //             child: Column(
+                    //               mainAxisAlignment: MainAxisAlignment.center,
+                    //               children: [
+                    //                 Icon(
+                    //                   Icons.add_photo_alternate,
+                    //                   color: AppTheme.primaryColor,
+                    //                   size: 30,
+                    //                 ),
+                    //                 SizedBox(height: 5),
+                    //                 Text(
+                    //                   'اختر صورة',
+                    //                   style: TextStyle(
+                    //                     fontFamily: AppTheme.fontFamily,
+                    //                     color: AppTheme.primaryColor,
+                    //                     fontSize: 10,
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //           ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ],
