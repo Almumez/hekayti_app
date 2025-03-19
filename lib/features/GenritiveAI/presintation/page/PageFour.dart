@@ -63,9 +63,10 @@ class _PageFourState extends State<PageFour> {
                     ),
                     CustomField(
                       size: 200,
-                      onching: (value) {
+                      onChanged: (value) {
                         controller.StoryName = value.toString();
                         controller.update();
+                        print(controller.StoryName);
                       },
                       valdution: (value) {
                         if (value.toString().isEmpty) {
@@ -78,10 +79,36 @@ class _PageFourState extends State<PageFour> {
                         return null;
                       },
                       controler:
-                          controller.StoryName, // Use a TextEditingController here
+                          controller.StoryNameController, // Use a TextEditingController here
                       text: 'مثال  :  محمد',
                       type: TextInputType.text,
                     ),
+                    
+                    SizedBox(
+                      height: screenUtil.screenHeight * .05,
+                    ),
+                    Text('قم بإدخال عنوان القصة:',
+                        style: AppTheme.textTheme.displaySmall),
+                    SizedBox(
+                      height: screenUtil.screenHeight * .05,
+                    ),
+                    CustomField(
+                      size: 200,
+                      onChanged: (value) {
+                        controller.StoryTopic = value.toString();
+                        controller.update();
+                      },
+                      valdution: (value) {
+                        if (value.toString().isEmpty) {
+                          return 'يرجى منك ادخال عنوان القصة ';
+                        }
+                        return null;
+                      },
+                      controler: controller.StoryTopicController,
+                      text: 'مثال  :  مغامرة في الغابة',
+                      type: TextInputType.text,
+                    ),
+                    
                     //
                     // Text('قم برفع صورة بطل قصتك:',
                     //     style: AppTheme.textTheme.displaySmall),

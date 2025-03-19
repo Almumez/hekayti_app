@@ -54,7 +54,7 @@ class _PageFourState extends State<PageFour> {
                     ),
                     CustomField(
                       size: 200,
-                      onching: (value) {
+                      onChanged: (value) {
                         controller.userModel!.user_name = value.toString();
                         controller.update();
                       },

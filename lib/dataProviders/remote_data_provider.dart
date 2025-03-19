@@ -188,6 +188,7 @@ class RemoteDataProvider {
     log(DataSourceURL.baseUrl +
         url +
         "?api_key=zaCELgL.0imfnc8mVLWwsAawjYr4Rx-Af50DDqtlx");
+    print(body);
     log("response.body ${response.body.toString()}");
     log(response.statusCode.toString());
 

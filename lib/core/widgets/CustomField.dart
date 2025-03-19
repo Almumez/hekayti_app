@@ -8,7 +8,7 @@ class CustomField extends StatefulWidget {
   final icon;
   final text;
   final type;
-  final onching;
+  Function(String)? onChanged;
   double size;
   final controler;
 
@@ -20,7 +20,7 @@ class CustomField extends StatefulWidget {
       this.type,
       required this.controler,
       required this.size,
-      this.onching})
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -37,6 +37,7 @@ class _CustomFieldState extends State<CustomField> {
         width: widget.size,
         height: 70,
         child: TextFormField(
+          onChanged: widget.onChanged,
           validator: widget.valdution,
           keyboardType: widget.type,
           style: AppTheme.textTheme.displayMedium,

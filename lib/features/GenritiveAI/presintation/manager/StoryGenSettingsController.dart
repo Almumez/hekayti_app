@@ -7,7 +7,12 @@ import '../../../../core/util/Common.dart';
 class StoryGenSettingsController extends GetxController {
  String? StoryTheme;
  String? StoryName;
+ String? StoryTopic;
 int  StoryThemeIndex=0;
+
+TextEditingController   StoryNameController=TextEditingController();
+TextEditingController   StoryTopicController=TextEditingController();
+
 int index=0;
   @override
   void onInit() {

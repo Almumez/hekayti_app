@@ -57,9 +57,9 @@ class GenritiveAIRepository extends Repository {
             retrievedDataType: GenritiveAIMode.init(),
             returnType: GenritiveAIMode.init(),
             body: {
-              "hero_name": "سارة أحمد",
-              "painting_style": "رسوم كرتونية",
-              "story_topic": "عالم الفضاء"
+              "hero_name": hero_name,
+              "painting_style": painting_style,
+              "story_topic":  story_topic
             }
           );
           return remoteData;

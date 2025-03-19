@@ -238,12 +238,14 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                   if (index == 2) {
                                                                     if (await networkInfo
                                                                         .isConnected) {
-                                                                      print("object");
+                                                                      print(controller.StoryTopic);
+                                                                      print(controller.StoryName);
+                                                                      print(controller.StoryTheme);
                                                                       print(controller.index);
                                                                       BlocProvider.of<GenritiveAIBloc>(
                                                                           _context)
                                                                           .add(
-                                                                          GenritiveAIStory(hero_name: "", painting_style: "",story_topic: ""));
+                                                                          GenritiveAIStory(hero_name: controller.StoryName!, painting_style: controller.StoryTheme!,story_topic: controller.StoryTopic!));
                                                                     } else {
                                                                       showImagesDialog(
                                                                           context,
