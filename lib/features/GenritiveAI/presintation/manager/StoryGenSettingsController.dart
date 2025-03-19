@@ -8,6 +8,7 @@ class StoryGenSettingsController extends GetxController {
  String? StoryTheme;
  String? StoryName;
 int  StoryThemeIndex=0;
+int index=0;
   @override
   void onInit() {
     super.onInit();

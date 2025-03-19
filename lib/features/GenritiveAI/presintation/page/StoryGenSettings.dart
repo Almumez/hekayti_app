@@ -149,6 +149,10 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                             InkWell(
                                                               onTap: () {
                                                                 //
+                                                                controller.index=index-1;
+                                                                controller.update();
+                                                                print("controller.index");
+                                                                print(controller.index);
                                                                 pageController.previousPage(
                                                                     duration: Duration(
                                                                         milliseconds:
@@ -222,6 +226,10 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                           });
                                                                     }
                                                                   } else {
+                                                                    controller.index=index+1;
+                                                                    controller.update();
+                                                                    print("controller.index");
+                                                                    print(controller.index);
                                                                     pageController
                                                                         .nextPage(
                                                                         duration:
