@@ -5,7 +5,6 @@ import 'package:hikayati_app/core/util/ScreenUtil.dart';
 import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/gen/assets.gen.dart';
 import 'package:hikayati_app/core/widgets/CustomPageRoute.dart';
-import 'package:hikayati_app/features/GenritiveAI/presintation/page/GenritiveAIStoryPage.dart';
 import 'package:hikayati_app/features/GenritiveAI/presintation/page/StoryGenSettings.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
@@ -27,8 +26,10 @@ class GenritiveAIPage extends StatefulWidget {
   State<GenritiveAIPage> createState() => _GenritiveAIPageState();
 }
 
-class _GenritiveAIPageState extends State<GenritiveAIPage> {
+class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProviderStateMixin {
   ScreenUtil screenUtil = ScreenUtil();
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   // For Tutorial
   GlobalKey keyCreateStory = GlobalKey();
@@ -44,6 +45,27 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
     super.initState();
     initUser();
     initTutorial();
+    
+    // تهيئة الأنيميشن للزر العائم
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1500),
+    );
+    
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.elasticOut,
+      ),
+    );
+    
+    _animationController.repeat(reverse: true);
+  }
+  
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   initUser() async {
@@ -106,70 +128,23 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return Scaffold(
-      floatingActionButton: Align(
-        alignment: Alignment.bottomLeft,
-        child: Padding(
-          padding: EdgeInsets.only(left: 30.0, bottom: 20.0),
-          child: Container(
+      floatingActionButton: AnimatedBuilder(
+        animation: _animation,
+        builder: (context, child) {
+          return FloatingActionButton(
+            backgroundColor:  Colors.white,
             key: keyCreateStory,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.purple.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 8,
-                  offset: Offset(0, 3),
+            onPressed: () {
+              Navigator.push(
+                context,
+                CustomPageRoute(
+                  child: StoryGenSettings(index: 0),
                 ),
-              ],
-            ),
-            child: FloatingActionButton.extended(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  CustomPageRoute(
-                    child: StoryGenSettings(index: 0),
-                  ),
-                );
-              },
-              isExtended: true,
-              label: Text(
-                "أنشئ قصة",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              icon: Container(
-                width: 60,
-                height: 60,
-                padding: EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFFF7BCA), // Pink
-                      Color(0xFF9C27B0), // Purple
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(30),
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 2,
-                  ),
-                ),
-                child: Lottie.asset(
-                  "assets/json/create_ai.json",
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-        ),
+              );
+            },
+            child: Image.asset("assets/images/GenritiveAI.png", height: 30, width: 30,),
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Container(

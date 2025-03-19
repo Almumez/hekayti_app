@@ -33,12 +33,15 @@ class TutorialWidget extends StatelessWidget {
               width: screenUtil.screenWidth * .2,
             ),
             Container(
+
               width: screenUtil.screenWidth * .3,
               height: screenUtil.screenHeight * .4,
               padding: EdgeInsets.all(screenUtil.screenWidth * .015),
               decoration: BoxDecoration(
+
                 color: AppTheme.primaryColor,
                 borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Colors.white, width: 2),
               ),
               child: Center(
                 child: Column(
