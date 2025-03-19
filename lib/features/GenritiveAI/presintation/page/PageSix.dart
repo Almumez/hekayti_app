@@ -37,9 +37,12 @@ class _PageSixState extends State<PageSix> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text('حدد نوع الرسم  لقصتك:', style: AppTheme.textTheme.displaySmall),
+            SizedBox(height: 15,),
+            Text('حدد نوع الرسم  لقصتك:', style: AppTheme.textTheme.displayLarge),
+            SizedBox(height: 15,),
+
             Container(
-              height: screenUtil.screenHeight * .4,
+              height: screenUtil.screenHeight * .6,
               width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,

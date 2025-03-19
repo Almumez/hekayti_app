@@ -1,21 +1,35 @@
 class GenritiveAIMode {
-  dynamic id, story_id, updated_at, stars, percentage;
+  dynamic id, name, cover_photo, hero_name, painting_style;
+  dynamic story_topic, story_data, status, created_at, updated_at, slides;
 
   GenritiveAIMode({
     this.id,
+    required this.name,
+    required this.cover_photo,
+    required this.hero_name,
+    required this.painting_style,
+    required this.story_topic,
+    required this.story_data,
+    required this.status,
+    required this.created_at,
     required this.updated_at,
-    required this.percentage,
-    required this.story_id,
-    required this.stars,
+    required this.slides,
   });
 
   factory GenritiveAIMode.fromJson(Map<String, dynamic> story) {
     return GenritiveAIMode(
-        id: story['id'],
-        updated_at: story['updated_at'],
-        story_id: story['story_id'],
-        stars: story['stars'],
-        percentage: story['percentage']);
+      id: story['id'],
+      name: story['name'],
+      cover_photo: story['cover_photo'],
+      hero_name: story['hero_name'],
+      painting_style: story['painting_style'],
+      story_topic: story['story_topic'],
+      story_data: story['story_data'],
+      status: story['status'],
+      created_at: story['created_at'],
+      updated_at: story['updated_at'],
+      slides: story['slides'],
+    );
   }
 
   GenritiveAIMode fromJson(Map<String, dynamic> json) {
@@ -25,10 +39,16 @@ class GenritiveAIMode {
   factory GenritiveAIMode.init() {
     return GenritiveAIMode(
       id: '',
-      story_id: '',
+      name: '',
+      cover_photo: '',
+      hero_name: '',
+      painting_style: '',
+      story_topic: '',
+      story_data: [],
+      status: '',
+      created_at: '',
       updated_at: '',
-      stars: '',
-      percentage: '',
+      slides: [],
     );
   }
 
@@ -42,9 +62,15 @@ class GenritiveAIMode {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'name': name,
+        'cover_photo': cover_photo,
+        'hero_name': hero_name,
+        'painting_style': painting_style,
+        'story_topic': story_topic,
+        'story_data': story_data,
+        'status': status,
+        'created_at': created_at,
         'updated_at': updated_at,
-        'story_id': story_id,
-        'stars': stars,
-        'percentage': percentage,
+        'slides': slides,
       };
 }

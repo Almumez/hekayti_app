@@ -15,11 +15,11 @@ class GenritiveAILoading extends GenritiveAIState {
 }
 
 class GenritiveAILoaded extends GenritiveAIState {
-  String successMessage;
-  GenritiveAILoaded({required this.successMessage});
+  List<GenritiveAIMode> storyModel;
+  GenritiveAILoaded({required this.storyModel});
 
   @override
-  List<Object> get props => [successMessage];
+  List<Object> get props => [storyModel];
 }
 
 class GenritiveAIError extends GenritiveAIState {

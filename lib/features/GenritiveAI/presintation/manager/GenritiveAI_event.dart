@@ -5,9 +5,7 @@ abstract class GenritiveAIEvent extends Equatable {
 }
 
 class GenritiveAI extends GenritiveAIEvent {
-  String password, email;
-
-  GenritiveAI({required this.password, required this.email});
+  GenritiveAI();
 
   @override
   List<Object> get props => [];

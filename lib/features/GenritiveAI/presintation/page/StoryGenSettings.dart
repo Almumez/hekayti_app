@@ -213,8 +213,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                           _context)
                                                                           .add(
                                                                           GenritiveAI(
-                                                                            email: "",
-                                                                            password: "",
+
                                                                           ));
                                                                     } else {
                                                                       showImagesDialog(

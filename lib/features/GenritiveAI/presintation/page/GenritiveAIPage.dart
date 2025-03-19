@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hikayati_app/core/AppTheme.dart';
 import 'package:hikayati_app/core/util/ScreenUtil.dart';
+import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/gen/assets.gen.dart';
 import 'package:hikayati_app/core/widgets/CustomPageRoute.dart';
 import 'package:hikayati_app/features/GenritiveAI/presintation/page/GenritiveAIStoryPage.dart';
@@ -13,6 +15,9 @@ import 'package:hikayati_app/core/util/CharactersList.dart';
 import 'package:hikayati_app/core/util/Common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
+import '../../../../injection_container.dart';
+import '../manager/GenritiveAI_bloc.dart';
+
 class GenritiveAIPage extends StatefulWidget {
   const GenritiveAIPage({Key? key}) : super(key: key);
 
@@ -22,7 +27,7 @@ class GenritiveAIPage extends StatefulWidget {
 
 class _GenritiveAIPageState extends State<GenritiveAIPage> {
   ScreenUtil screenUtil = ScreenUtil();
-  
+
   // Demo data for story cards
   final List<Map<String, String>> demoStories = [
     {'name': 'مغامرات في الغابة', 'image': 'assets/images/demo/forest.png'},
@@ -61,7 +66,7 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
   initTutorial() async {
     prefs = await SharedPreferences.getInstance();
     tautorial = await prefs?.getBool("aiTutorial") ?? false;
-    
+
     if (!tautorial && userModel != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showTutorial();
@@ -101,7 +106,7 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
         });
       }
     );
-    
+
     tutorialCoachMark!.show(context: context);
   }
 
@@ -184,49 +189,73 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> {
                 fit: BoxFit.fill
             )
         ),
-        child: Container(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: screenUtil.screenHeight * .02),
-              Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenUtil.screenWidth * .01,
-                    vertical: screenUtil.screenHeight * .01,
+        child: BlocProvider(
+          create: (context) => sl<GenritiveAIBloc>(),
+          child: BlocConsumer<GenritiveAIBloc, GenritiveAIState>(
+            listener: (_context, state) async {
+              if (state is GenritiveAILoading) {
+                loadingApp("جاري تسجيل الحساب...");
+              }
+
+              if (state is GenritiveAIError) {
+
+              }
+
+            },
+            builder: (_context, state) {
+              if (state is GenritiveAIInitial) {
+                BlocProvider.of<GenritiveAIBloc>(_context)
+                    .add(GenritiveAI());
+              }
+              if (state is GenritiveAILoaded) {
+                return  Container(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: screenUtil.screenHeight * .02),
+                      Expanded(
+                        child: GridView.builder(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenUtil.screenWidth * .01,
+                            vertical: screenUtil.screenHeight * .01,
+                          ),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 15 / 14,
+                            crossAxisSpacing: screenUtil.screenWidth * .015,
+                            mainAxisSpacing: screenUtil.screenHeight * .05,
+                          ),
+                          itemCount: state.storyModel.length,
+                          itemBuilder: (context, index) {
+                            return StoryAICard(
+                              name: state.storyModel[index].name,
+                              image:  state.storyModel[index].cover_photo,
+                            );
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    childAspectRatio: 15 / 14,
-                    crossAxisSpacing: screenUtil.screenWidth * .015,
-                    mainAxisSpacing: screenUtil.screenHeight * .05,
-                  ),
-                  itemCount: demoStories.length,
-                  itemBuilder: (context, index) {
-                    return DemoStoryCard(
-                      name: demoStories[index]['name'] ?? '',
-                      imageAsset: demoStories[index]['image'] ?? '',
-                    );
-                  },
-                ),
-              ),
-            ],
+                );
+              }
+              return Container();
+            },
           ),
-        ),
+        )
       ),
     );
   }
 }
 
-class DemoStoryCard extends StatelessWidget {
+class StoryAICard extends StatelessWidget {
   final String name;
-  final String imageAsset;
+  final String image;
 
-  const DemoStoryCard({
+  const StoryAICard({
     Key? key,
     required this.name,
-    required this.imageAsset,
+    required this.image,
   }) : super(key: key);
 
   @override
@@ -241,7 +270,7 @@ class DemoStoryCard extends StatelessWidget {
           CustomPageRoute(
             child: GenritiveAIStoryPage(
               storyTitle: name,
-              storyImage: imageAsset,
+              storyImage: image,
             ),
           ),
         );
@@ -266,8 +295,8 @@ class DemoStoryCard extends StatelessWidget {
               width: screenUtil.screenWidth * .14,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  imageAsset,
+                child: Image.network(
+                 DataSourceURL.baseDownloadUrl +image,
                   fit: BoxFit.cover,
                   // Using a fallback image in case the specified asset doesn't exist
                   errorBuilder: (context, error, stackTrace) {

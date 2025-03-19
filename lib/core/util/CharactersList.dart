@@ -208,6 +208,26 @@ class CharactersList {
       'image': "assets/images/story_theme4.png",
       "name": "عالم الفضاء الخارجي"
     },
+    {
+      'id': '4',
+      'image': "assets/images/story_theme5.png",
+      "name": "عالم الألعاب"
+    },
+    {
+      'id': '5',
+      'image': "assets/images/story_theme6.png",
+      "name": "عالم المستقبل والتكنولوجيا"
+    },
+    {
+      'id': '6',
+      'image': "assets/images/story_theme7.png",
+      "name": "عالم العصر الحجري"
+    },
+    {
+      'id': '7',
+      'image': "assets/images/story_theme8.png",
+      "name": "عالم الحشرات الصغيرة"
+    },
 
   ];
   List Levels = [

@@ -6,6 +6,7 @@ import 'package:hikayati_app/dataProviders/error/failures.dart';
 
 import 'package:equatable/equatable.dart';
 
+import '../../date/model/GenritiveAIMode.dart';
 import '../../date/repository/GenritiveAIRepository.dart';
 
 part 'GenritiveAI_event.dart';
@@ -19,7 +20,7 @@ class GenritiveAIBloc extends Bloc<GenritiveAIEvent, GenritiveAIState> {
     if (event is GenritiveAI) {
       yield GenritiveAILoading();
       final failureOrData =
-          await repository.GenritiveAI(password: event.password, email: event.email);
+          await repository.GenritiveAI();
       yield* failureOrData.fold(
         (failure) async* {
           log('yield is error');
@@ -28,7 +29,7 @@ class GenritiveAIBloc extends Bloc<GenritiveAIEvent, GenritiveAIState> {
         (data) async* {
           log('yield is loaded');
           yield GenritiveAILoaded(
-            successMessage: 'تم تسجيل الدخول بنجاح',
+            storyModel: data
           );
         },
       );

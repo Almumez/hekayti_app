@@ -1,4 +1,4 @@
-package com.example.hikayati_app;
+package com.hekayti.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 

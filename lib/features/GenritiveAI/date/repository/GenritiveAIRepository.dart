@@ -4,6 +4,7 @@ import 'package:hikayati_app/dataProviders/network/data_source_url.dart';
 import 'package:hikayati_app/dataProviders/remote_data_provider.dart';
 import 'package:hikayati_app/dataProviders/repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:hikayati_app/features/GenritiveAI/date/model/GenritiveAIMode.dart';
 import 'package:hikayati_app/features/Story/date/model/accuracyModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,21 +25,17 @@ class GenritiveAIRepository extends Repository {
     required this.networkInfo,
   });
 
-  Future<Either<Failure, dynamic>> GenritiveAI(
-      {required String password, email}) async
+  Future<Either<Failure, dynamic>> GenritiveAI() async
   {
 
 
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
         remoteFunction: () async {
-          final remoteData = await remoteDataProvider.sendData(
-              url: DataSourceURL.signup,
-              retrievedDataType: int,
-              returnType: int,
-              body: {
-              }
-
+          List<GenritiveAIMode> remoteData = await remoteDataProvider.getData(
+              url: DataSourceURL.getAIStory,
+              retrievedDataType: GenritiveAIMode.init(),
+              returnType: List,
               );
 
 
