@@ -261,7 +261,7 @@ class StoryAICard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenUtil = ScreenUtil()..init(context);
-
+   print( DataSourceURL.aiImages +image);
     return InkWell(
       onTap: () {
         // Navigate to the GenritiveAIStoryPage with this story
@@ -296,10 +296,12 @@ class StoryAICard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                 DataSourceURL.baseDownloadUrl +image,
+                 DataSourceURL.aiImages +image,
                   fit: BoxFit.cover,
                   // Using a fallback image in case the specified asset doesn't exist
                   errorBuilder: (context, error, stackTrace) {
+
+                   print(error);
                     return Container(
                       color: Colors.grey[300],
                       child: Icon(Icons.image, color: AppTheme.primaryColor, size: 40),

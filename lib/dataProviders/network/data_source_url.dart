@@ -2,6 +2,8 @@ class DataSourceURL {
   static String baseUrl = 'http://13.201.50.71/api/';
   static String baseDownloadUrl =
       'http://13.201.50.71/storage/upload/';
+  static String aiImages =
+      'http://13.201.50.71/storage/ai_stories/';
   static String getAllStory = 'get-all-stories';
   static String getAllmedia = 'get-all-storiesMedia';
   static String getAllaccuracy = 'get-accuracy';
