@@ -92,7 +92,8 @@ class RemoteDataProvider {
     String? apiToken,
     required retrievedDataType,
     dynamic returnType,
-  }) async {
+  }) async
+  {
     log('get data launched');
 
 

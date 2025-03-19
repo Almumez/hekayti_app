@@ -36,7 +36,7 @@ class GenritiveAIBloc extends Bloc<GenritiveAIEvent, GenritiveAIState> {
     }
 
 
-    if (event is GenritiveAI) {
+    if (event is GenritiveAIStory) {
       yield GenritiveAIStoryLoading();
       final failureOrData =
           await repository.GenritiveAIStory();
