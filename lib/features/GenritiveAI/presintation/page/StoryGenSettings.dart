@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:hikayati_app/features/Home/presintation/page/HomePage.dart';
 import 'package:hikayati_app/features/GenritiveAI/presintation/manager/StoryGenSettingsController.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/AppTheme.dart';
@@ -15,6 +16,7 @@ import '../../../../core/widgets/CustomPageRoute.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../../main.dart';
+import '../../../AIStory/presintation/page/AIStoryPage.dart';
 import '../../../Regestrion/date/model/userMode.dart';
 
 import '../manager/GenritiveAI_bloc.dart';
@@ -54,17 +56,43 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
         child: BlocConsumer<GenritiveAIBloc, GenritiveAIState>(
           listener: (_context, state) async {
 
-            if (state is GenritiveAIStoryLoaded) {
 
-            }
             if (state is GenritiveAIStoryError) {
 
             }
-            if (state is GenritiveAIStoryLoading) {
-              loadingApp("جاري تسجيل الحساب...");
-            }
+
           },
           builder: (_context, state) {
+            if (state is GenritiveAIStoryLoaded) {
+              Navigator.push(
+                context,
+                CustomPageRoute(
+                  child: AIStoryPage(storyId:state.storyModel.id.toString()),
+                ),
+              );
+            }
+            if (state is GenritiveAIStoryLoading) {
+          return    Container(
+                height: double.infinity,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    Center(
+                        child: Lottie.asset(
+                          "assets/json/animation_slied.json",
+                          width: 300,
+                        )),
+                    Text(
+                      'جاري انشاء و تحهيز القصه ',
+                      style: TextStyle(
+                          color: AppTheme.primaryColor,
+                          fontSize: 20,
+                          fontFamily: AppTheme.fontFamily),
+                    )
+                  ],
+                ),
+              );
+            }
             return GetBuilder<StoryGenSettingsController>(
               init: StoryGenSettingsController(),
               builder: (controller) {
