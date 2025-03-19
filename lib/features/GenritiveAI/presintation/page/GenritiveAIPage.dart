@@ -160,9 +160,7 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
           create: (context) => sl<GenritiveAIBloc>(),
           child: BlocConsumer<GenritiveAIBloc, GenritiveAIState>(
             listener: (_context, state) async {
-              if (state is GenritiveAILoading) {
-                loadingApp("جاري تسجيل الحساب...");
-              }
+
 
               if (state is GenritiveAIError) {
 
@@ -170,11 +168,15 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
 
             },
             builder: (_context, state) {
+              if (state is GenritiveAILoading) {
+                return Center(child: loadingApp('جاري تجهيز القصص .....  '));
+              }
               if (state is GenritiveAIInitial) {
                 BlocProvider.of<GenritiveAIBloc>(_context)
                     .add(GenritiveAI());
               }
               if (state is GenritiveAILoaded) {
+
                 return  Container(
                   padding: EdgeInsets.all(16),
                   child: Column(
