@@ -39,7 +39,7 @@ class GenritiveAIBloc extends Bloc<GenritiveAIEvent, GenritiveAIState> {
     if (event is GenritiveAIStory) {
       yield GenritiveAIStoryLoading();
       final failureOrData =
-          await repository.GenritiveAIStory();
+          await repository.GenritiveAIStory(  story_topic: event.story_topic, hero_name: event.hero_name, painting_style: event.painting_style);
       yield* failureOrData.fold(
         (failure) async* {
           log('yield is error');

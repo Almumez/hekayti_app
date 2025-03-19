@@ -47,7 +47,7 @@ class GenritiveAIRepository extends Repository {
 
 
 
-  Future<Either<Failure, dynamic>> GenritiveAIStory() async
+  Future<Either<Failure, dynamic>> GenritiveAIStory({ required String ? hero_name,required String ? painting_style,required String ? story_topic }) async
   {
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
