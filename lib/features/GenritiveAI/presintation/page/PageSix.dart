@@ -58,6 +58,8 @@ class _PageSixState extends State<PageSix> {
                         controller.StoryThemeIndex = index;
                         controller.StoryTheme=CharactersListlist.StoryThemeList[index]['name'].toString();
                         controller.update();
+                        print( controller.StoryTheme);
+                        print(  controller.StoryThemeIndex);
                       },
                       isSelected:
                           controller.StoryThemeIndex == index ? true : false,

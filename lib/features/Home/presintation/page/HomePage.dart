@@ -533,7 +533,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: TutorialWidget(
               index: 6,
               onTap: () {
-                print("ddddddddddddASadasdadas")  ;
                 tutorialCoachMark!.next();
               },
               text: " طفلك يمكنه إنشاء قصته الخاصة بالذكاء الاصطناعي",
