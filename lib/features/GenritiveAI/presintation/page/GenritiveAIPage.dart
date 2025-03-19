@@ -29,7 +29,8 @@ class GenritiveAIPage extends StatefulWidget {
 class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProviderStateMixin {
   ScreenUtil screenUtil = ScreenUtil();
   late AnimationController _animationController;
-  late Animation<double> _animation;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _rotationAnimation;
 
   // For Tutorial
   GlobalKey keyCreateStory = GlobalKey();
@@ -49,17 +50,48 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
     // تهيئة الأنيميشن للزر العائم
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500),
+      duration: Duration(milliseconds: 2000),
     );
     
-    _animation = Tween<double>(begin: 0, end: 1).animate(
+    // إنشاء تأثير التكبير والتصغير
+    _scaleAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.0, end: 1.2),
+        weight: 40,
+      ),
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 1.2, end: 1.0),
+        weight: 40,
+      ),
+    ]).animate(
       CurvedAnimation(
         parent: _animationController,
-        curve: Curves.elasticOut,
+        curve: Curves.easeInOut,
       ),
     );
     
-    _animationController.repeat(reverse: true);
+    // إضافة حركة دوران خفيفة
+    _rotationAnimation = TweenSequence<double>([
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 0, end: 0.05),
+        weight: 30,
+      ),
+      TweenSequenceItem(
+        tween: Tween<double>(begin: 0.05, end: -0.05),
+        weight: 40,
+      ),
+      TweenSequenceItem(
+        tween: Tween<double>(begin: -0.05, end: 0),
+        weight: 30,
+      ),
+    ]).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut,
+      ),
+    );
+    
+    _animationController.repeat();
   }
   
   @override
@@ -129,20 +161,50 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
     screenUtil.init(context);
     return Scaffold(
       floatingActionButton: AnimatedBuilder(
-        animation: _animation,
+        animation: _animationController,
         builder: (context, child) {
-          return FloatingActionButton(
-            backgroundColor:  Colors.white,
-            key: keyCreateStory,
-            onPressed: () {
-              Navigator.push(
-                context,
-                CustomPageRoute(
-                  child: StoryGenSettings(index: 0),
+          return Transform.scale(
+            scale: _scaleAnimation.value,
+            child: Transform.rotate(
+              angle: _rotationAnimation.value,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppTheme.primaryColor.withOpacity(0.3),
+                      blurRadius: 12,
+                      spreadRadius: _scaleAnimation.value * 2,
+                    ),
+                  ],
                 ),
-              );
-            },
-            child: Image.asset("assets/images/GenritiveAI.png", height: 30, width: 30,),
+                child: FloatingActionButton(
+                  backgroundColor: Colors.white,
+                  key: keyCreateStory,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      CustomPageRoute(
+                        child: StoryGenSettings(index: 0),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    margin:   EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(
+                        color: AppTheme.primaryColor,
+                        width: 3,
+
+                      ),
+                    ),
+                    child: Image.asset("assets/images/GenritiveAI.png", height: 40, width: 40),
+                  ),
+                ),
+              ),
+            ),
           );
         },
       ),
