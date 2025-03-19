@@ -64,6 +64,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
           },
           builder: (_context, state) {
             if (state is GenritiveAIStoryLoaded) {
+
               Navigator.push(
                 context,
                 CustomPageRoute(
@@ -72,7 +73,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
               );
             }
             if (state is GenritiveAIStoryLoading) {
-          return    Container(
+              return    Container(
                 height: double.infinity,
                 width: double.infinity,
                 child: Column(

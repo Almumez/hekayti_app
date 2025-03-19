@@ -200,6 +200,7 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
                             return StoryAICard(
                               name: state.storyModel[index].name,
                               image:  state.storyModel[index].cover_photo,
+                              storyId: state.storyModel[index].id.toString(),
                             );
                           },
                         ),
@@ -220,11 +221,13 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
 class StoryAICard extends StatelessWidget {
   final String name;
   final String image;
+  final String storyId;
 
   const StoryAICard({
     Key? key,
     required this.name,
     required this.image,
+   required this.storyId
   }) : super(key: key);
 
   @override
@@ -236,7 +239,7 @@ class StoryAICard extends StatelessWidget {
         Navigator.push(
           context,
           CustomPageRoute(
-            child: AIStoryPage(storyId: "1"),
+            child: AIStoryPage(storyId: storyId),
           ),
         );
       },
