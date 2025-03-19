@@ -14,6 +14,7 @@ class DataSourceURL {
   static String uploadCompletion = 'upload-completion';
   static String updateCompletion = 'update-completion';
   static String getAIStory = 'get-all-ai-stories';
+  static String generateAIStory = 'generate-ai-story';
   static String getAIStorySlides = 'get-ai-story/';
   static String getAllSlied = 'story_by_id';
   static String signup = 'signup';

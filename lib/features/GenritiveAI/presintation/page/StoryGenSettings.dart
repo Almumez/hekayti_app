@@ -53,13 +53,13 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
         create: (context) => sl<GenritiveAIBloc>(),
         child: BlocConsumer<GenritiveAIBloc, GenritiveAIState>(
           listener: (_context, state) async {
-            if (state is GenritiveAILoading) {
+            if (state is GenritiveAIStoryLoading) {
                  loadingApp("جاري تسجيل الحساب...");
             }
-            if (state is GenritiveAILoaded) {
+            if (state is GenritiveAIStoryLoaded) {
 
             }
-            if (state is GenritiveAIError) {
+            if (state is GenritiveAIStoryError) {
 
             }
           },
@@ -212,7 +212,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                       BlocProvider.of<GenritiveAIBloc>(
                                                                           _context)
                                                                           .add(
-                                                                          GenritiveAI(
+                                                                          GenritiveAIStory(email: '', password: ''
 
                                                                           ));
                                                                     } else {

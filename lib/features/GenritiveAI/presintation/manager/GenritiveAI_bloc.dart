@@ -35,20 +35,21 @@ class GenritiveAIBloc extends Bloc<GenritiveAIEvent, GenritiveAIState> {
       );
     }
 
-    // if (event is Signup) {
-    //   yield GenritiveAILoading();
-    //   final failureOrData =
-    //       await repository.signup(password: event.password, email: event.email);
-    //   yield* failureOrData.fold(
-    //     (failure) async* {
-    //       log('yield is error');
-    //       yield RegisterError(errorMessage: mapFailureToMessage(failure));
-    //     },
-    //     (data) async* {
-    //       log('yield is loaded');
-    //       yield RegisterLoaded(successMessage: data);
-    //     },
-    //   );
-    // }
+
+    if (event is GenritiveAI) {
+      yield GenritiveAIStoryLoading();
+      final failureOrData =
+          await repository.GenritiveAIStory();
+      yield* failureOrData.fold(
+        (failure) async* {
+          log('yield is error');
+          yield GenritiveAIStoryError(errorMessage: mapFailureToMessage(failure));
+        },
+        (data) async* {
+          log('yield is loaded');
+          yield GenritiveAIStoryLoaded(storyModel: data);
+        },
+      );
+    }
   }
 }

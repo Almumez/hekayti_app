@@ -30,3 +30,31 @@ class GenritiveAIError extends GenritiveAIState {
   @override
   List<Object> get props => [];
 }
+
+
+class GenritiveAIStoryInitial extends GenritiveAIState {
+  @override
+  List<Object> get props => [];
+}
+
+class GenritiveAIStoryLoading extends GenritiveAIState {
+  @override
+  List<Object> get props => [];
+}
+
+class GenritiveAIStoryLoaded extends GenritiveAIState {
+  List<GenritiveAIMode> storyModel;
+  GenritiveAIStoryLoaded({required this.storyModel});
+
+  @override
+  List<Object> get props => [storyModel];
+}
+
+class GenritiveAIStoryError extends GenritiveAIState {
+  String errorMessage;
+
+  GenritiveAIStoryError({required this.errorMessage});
+
+  @override
+  List<Object> get props => [];
+}
