@@ -72,6 +72,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   GlobalKey keyfour = GlobalKey();
   GlobalKey keyseven = GlobalKey();
   GlobalKey keysix = GlobalKey();
+  GlobalKey keyTab1 = GlobalKey();
+  GlobalKey keyTab2 = GlobalKey();
   
   // Tab controller for managing tabs
   late TabController _tabController;
@@ -239,10 +241,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         labelPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
         tabs: [
           Tab(
+            key: keyTab1,
             height: 25,
             text: 'القصص',
           ),
           Tab(
+            key: keyTab2,
             height: 25,
             text: 'إنشاء قصة',
           ),
@@ -512,7 +516,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
-      TargetFocus(identify: "target5", keyTarget: keyfive, contents: [
+      TargetFocus(identify: "target5", keyTarget: keyTab1, contents: [
         TargetContent(
             align: ContentAlign.left,
             child: TutorialWidget(
@@ -520,11 +524,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               onTap: () {
                 tutorialCoachMark!.next();
               },
-              text: "يمكنك  استعراض  القصة  من  هنا ",
+              text: "القصص المتاحة لك للقراءة",
               Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
-      TargetFocus(identify: "target6", keyTarget: keysix, contents: [
+      TargetFocus(identify: "target6", keyTarget: keyTab2, contents: [
         TargetContent(
             align: ContentAlign.left,
             child: TutorialWidget(
@@ -533,6 +537,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 tutorialCoachMark!.next();
               },
               text: " طفلك يمكنه إنشاء قصته الخاصة بالذكاء الاصطناعي",
+              Characters: int.parse(userModel!.character.toString()) ?? 0,
+            ))
+      ]),
+      TargetFocus(identify: "target7", keyTarget: keyfive, contents: [
+        TargetContent(
+            align: ContentAlign.left,
+            child: TutorialWidget(
+              index: 7,
+              onTap: () {
+                tutorialCoachMark!.next();
+              },
+              text: "يمكنك استعراض القصة من هنا",
               Characters: int.parse(userModel!.character.toString()) ?? 0,
             ))
       ]),
