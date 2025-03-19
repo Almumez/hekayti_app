@@ -16,7 +16,9 @@ import 'package:hikayati_app/core/util/Common.dart';
 import 'package:hikayati_app/features/Regestrion/date/model/userMode.dart';
 
 import '../../../../injection_container.dart';
+import '../../../AIStory/presintation/page/AIStoryPage.dart';
 import '../manager/GenritiveAI_bloc.dart';
+
 
 class GenritiveAIPage extends StatefulWidget {
   const GenritiveAIPage({Key? key}) : super(key: key);
@@ -27,16 +29,6 @@ class GenritiveAIPage extends StatefulWidget {
 
 class _GenritiveAIPageState extends State<GenritiveAIPage> {
   ScreenUtil screenUtil = ScreenUtil();
-
-  // Demo data for story cards
-  final List<Map<String, String>> demoStories = [
-    {'name': 'مغامرات في الغابة', 'image': 'assets/images/demo/forest.png'},
-    {'name': 'رحلة إلى الفضاء', 'image': 'assets/images/demo/space.png'},
-    {'name': 'أصدقاء البحر', 'image': 'assets/images/demo/sea.png'},
-    {'name': 'حكايات الديناصورات', 'image': 'assets/images/demo/dino.png'},
-    {'name': 'مملكة الألوان', 'image': 'assets/images/demo/colors.png'},
-    {'name': 'أبطال المدينة', 'image': 'assets/images/demo/heroes.png'},
-  ];
 
   // For Tutorial
   GlobalKey keyCreateStory = GlobalKey();
@@ -261,17 +253,13 @@ class StoryAICard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenUtil = ScreenUtil()..init(context);
-   print( DataSourceURL.aiImages +image);
     return InkWell(
       onTap: () {
-        // Navigate to the GenritiveAIStoryPage with this story
+        // Navigate to the AIStoryPage with this story ID
         Navigator.push(
           context,
           CustomPageRoute(
-            child: GenritiveAIStoryPage(
-              storyTitle: name,
-              storyImage: image,
-            ),
+            child: AIStoryPage(storyId: "1"),
           ),
         );
       },
