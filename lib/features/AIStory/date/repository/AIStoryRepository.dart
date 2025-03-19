@@ -26,7 +26,7 @@ class AIStoryRepository extends Repository {
         final AIStoryModel remoteData = await remoteDataProvider.getData(
           url: "${DataSourceURL.getAIStorySlides}$storyId",
           retrievedDataType: AIStoryModel.init(),
-          returnType: AIStoryModel,
+          returnType: AIStoryModel.init(),
         );
         return remoteData;
       },

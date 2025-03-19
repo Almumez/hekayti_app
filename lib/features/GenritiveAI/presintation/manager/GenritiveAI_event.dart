@@ -12,9 +12,9 @@ class GenritiveAI extends GenritiveAIEvent {
 }
 
 class GenritiveAIStory extends GenritiveAIEvent {
-  String email, password;
+  String hero_name, painting_style,story_topic;
 
-  GenritiveAIStory({required this.email, required this.password});
+  GenritiveAIStory({required this.hero_name, required this.painting_style,  required this.story_topic});
 
   @override
   List<Object> get props => [];

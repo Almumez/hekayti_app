@@ -215,8 +215,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                       BlocProvider.of<GenritiveAIBloc>(
                                                                           _context)
                                                                           .add(
-                                                                          GenritiveAIStory(email: '', password: ''
-                                                                          ));
+                                                                          GenritiveAIStory(hero_name: "", painting_style: "",story_topic: ""));
                                                                     } else {
                                                                       showImagesDialog(
                                                                           context,

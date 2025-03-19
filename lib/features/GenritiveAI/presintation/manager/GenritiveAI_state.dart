@@ -43,7 +43,7 @@ class GenritiveAIStoryLoading extends GenritiveAIState {
 }
 
 class GenritiveAIStoryLoaded extends GenritiveAIState {
-  List<GenritiveAIMode> storyModel;
+  GenritiveAIMode storyModel;
   GenritiveAIStoryLoaded({required this.storyModel});
 
   @override

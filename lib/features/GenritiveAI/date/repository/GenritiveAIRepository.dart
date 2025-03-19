@@ -49,15 +49,13 @@ class GenritiveAIRepository extends Repository {
 
   Future<Either<Failure, dynamic>> GenritiveAIStory() async
   {
-
-
     return await sendRequest(
         checkConnection: networkInfo.isConnected,
         remoteFunction: () async {
-          List<GenritiveAIMode> remoteData = await remoteDataProvider.sendData(
+          GenritiveAIMode remoteData = await remoteDataProvider.sendJsonData(
             url: DataSourceURL.generateAIStory,
             retrievedDataType: GenritiveAIMode.init(),
-            returnType: List,
+            returnType: GenritiveAIMode.init(),
             body: {
               "hero_name": "سارة أحمد",
               "painting_style": "رسوم كرتونية",
