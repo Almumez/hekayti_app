@@ -11,9 +11,9 @@ import '../../../../core/AppTheme.dart';
 import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomCharacters.dart';
-import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
 
 import '../Widget/StoryThemeWidget.dart';
+import '../manager/StoryGenSettingsController.dart';
 
 class PageSix extends StatefulWidget {
   const PageSix({Key? key}) : super(key: key);
@@ -30,8 +30,8 @@ class _PageSixState extends State<PageSix> {
 
   Widget build(BuildContext context) {
     screenUtil.init(context);
-    return GetBuilder<IntroScreenController>(
-      init: IntroScreenController(),
+    return GetBuilder<StoryGenSettingsController>(
+      init: StoryGenSettingsController(),
       builder: (controller) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,11 +55,12 @@ class _PageSixState extends State<PageSix> {
                       image:
                           CharactersListlist.StoryThemeList[index]['image'].toString(),
                       onTap: () async {
-                        controller.selectedCharacter = index;
+                        controller.StoryThemeIndex = index;
+                        controller.StoryTheme=CharactersListlist.StoryThemeList[index]['name'].toString();
                         controller.update();
                       },
                       isSelected:
-                          controller.selectedCharacter == index ? true : false,
+                          controller.StoryThemeIndex == index ? true : false,
                     ),
                   );
                 },

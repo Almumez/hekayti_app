@@ -18,12 +18,9 @@ import '../../../../main.dart';
 import '../../../Regestrion/date/model/userMode.dart';
 
 import '../manager/GenritiveAI_bloc.dart';
-import 'PageFive.dart';
 import 'PageSix.dart';
 import 'PageOne.dart';
-import 'PageTow.dart';
 import 'PageFour.dart';
-import 'PageThree.dart';
 
 class StoryGenSettings extends StatefulWidget {
   int index;
@@ -60,17 +57,16 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                  loadingApp("جاري تسجيل الحساب...");
             }
             if (state is GenritiveAILoaded) {
-              
+
             }
             if (state is GenritiveAIError) {
-              
+
             }
           },
           builder: (_context, state) {
             return GetBuilder<StoryGenSettingsController>(
               init: StoryGenSettingsController(),
               builder: (controller) {
-                ifGenritiveAI(controller);
                 return Form(
                   key: _formKey,
                   child: SingleChildScrollView(
@@ -218,7 +214,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                     } else {
                                                                       showImagesDialog(
                                                                           context,
-                                                                          '${CharactersListobj.showCharactersList[int.parse(controller.selectedCharacter.toString())]['image'].toString()}',
+                                                                          '${CharactersListobj.showCharactersList[int.parse("0")]['image'].toString()}',
                                                                           'تاكد من وجود انترنت اول مره من اجل تحميل القصص',
                                                                               () {
                                                                             Navigator.pop(
@@ -281,32 +277,6 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
     );
   }
 
-  ifGenritiveAI(StoryGenSettingsController controller) async {
-    controller.userModel = await getCachedData(
-        key: "UserInformation",
-        retrievedDataType: UserModel.init(),
-        returnType: UserModel.init());
-  }
 
-  initOnBoardingAndApp(StoryGenSettingsController controller) async {
-    controller.saveUserInformation(UserModel(
-        user_name: controller.name.text,
-        email: controller.userModel?.email ?? "",
-        level: controller.selectedLevel,
-        character: controller.selectedCharacter,
-        update_at: DateTime.now().toString(),
-        password: controller.userModel?.password ?? "",
-        id: controller.userModel?.id ?? ""));
-    prefs = await SharedPreferences.getInstance();
-    prefs!.setBool('onbording', true);
-    setState(() {
-      isLoading = true;
-    });
-    await db.LoadingApp(controller.selectedLevel.toString(), '1');
-    await Future.delayed(Duration(seconds: 20));
-    setState(() {
-      isLoading = false;
-    });
-    Navigator.push(context, CustomPageRoute(child: HomePage()));
-  }
+
 }

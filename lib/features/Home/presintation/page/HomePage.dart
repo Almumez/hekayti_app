@@ -26,7 +26,6 @@ import '../../../../core/widgets/TutorialWidget.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../injection_container.dart';
 import '../../../GenritiveAI/presintation/page/StoryGenSettings.dart';
-import '../../../GenritiveAI/presintation/page/SplashScreen.dart';
 import '../../../Story/presintation/page/StoryPage.dart';
 import '../../../GenritiveAI/presintation/page/GenritiveAIPage.dart';
 
@@ -530,10 +529,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ]),
       TargetFocus(identify: "target6", keyTarget: keyTab2, contents: [
         TargetContent(
-            align: ContentAlign.left,
+            align: ContentAlign.right,
             child: TutorialWidget(
               index: 6,
               onTap: () {
+                print("ddddddddddddASadasdadas")  ;
                 tutorialCoachMark!.next();
               },
               text: " طفلك يمكنه إنشاء قصته الخاصة بالذكاء الاصطناعي",

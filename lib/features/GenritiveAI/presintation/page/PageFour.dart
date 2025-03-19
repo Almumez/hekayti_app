@@ -11,7 +11,8 @@ import '../../../../core/util/CharactersList.dart';
 import '../../../../core/util/Common.dart';
 import '../../../../core/widgets/CustomField.dart';
 import '../../../../gen/assets.gen.dart';
-import 'package:hikayati_app/features/introdection/presintation/manager/IntroScreenController.dart';
+
+import '../manager/StoryGenSettingsController.dart';
 
 class PageFour extends StatefulWidget {
   const PageFour({Key? key}) : super(key: key);
@@ -29,8 +30,8 @@ class _PageFourState extends State<PageFour> {
   @override
   Widget build(BuildContext context) {
     screenUtil.init(context);
-    return GetBuilder<IntroScreenController>(
-      init: IntroScreenController(),
+    return GetBuilder<StoryGenSettingsController>(
+      init: StoryGenSettingsController(),
       builder: (controller) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +64,7 @@ class _PageFourState extends State<PageFour> {
                     CustomField(
                       size: 200,
                       onching: (value) {
-                        controller.userModel!.user_name = value.toString();
+                        controller.StoryName = value.toString();
                         controller.update();
                       },
                       valdution: (value) {
@@ -77,7 +78,7 @@ class _PageFourState extends State<PageFour> {
                         return null;
                       },
                       controler:
-                          controller.name, // Use a TextEditingController here
+                          controller.StoryName, // Use a TextEditingController here
                       text: 'مثال  :  محمد',
                       type: TextInputType.text,
                     ),
