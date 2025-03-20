@@ -66,33 +66,90 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
           },
           builder: (_context, state) {
             if (state is GenritiveAIStoryLoaded) {
+              Future.delayed(Duration(milliseconds: 300), () {
+                Navigator.push(
+                  context,
+                  CustomPageRoute(
+                    child: AIStoryPage(storyId:state.storyModel.id.toString()),
+                  ),
+                );
+              });
 
-              Navigator.push(
-                context,
-                CustomPageRoute(
-                  child: AIStoryPage(storyId:state.storyModel.id.toString()),
-                ),
-              );
+
             }
             if (state is GenritiveAIStoryLoading) {
-              return    Container(
+              return Container(
                 height: double.infinity,
                 width: double.infinity,
-                child: Column(
-                  children: [
-                    Center(
-                        child: Lottie.asset(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/backgraond.png'),
+                    fit: BoxFit.fill
+                  ),
+                ),
+                child: Center(
+                  child: Container(
+                    width: _screenUtil.screenWidth * 0.85,
+                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.95),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        width: 4,
+                        color: AppTheme.primarySwatch.shade500
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppTheme.primaryColor.withOpacity(0.3),
+                          blurRadius: 15,
+                          offset: Offset(0, 5),
+                        )
+                      ]
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Lottie.asset(
                           "assets/json/animation_slied.json",
-                          width: 300,
-                        )),
-                    Text(
-                      'جاري انشاء و تحهيز القصه ',
-                      style: TextStyle(
-                          color: AppTheme.primaryColor,
-                          fontSize: 20,
-                          fontFamily: AppTheme.fontFamily),
-                    )
-                  ],
+                          width: 200,
+                          height: 200,
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          'جاري إنشاء وتجهيز القصة',
+                          style: TextStyle(
+                            color: AppTheme.primaryColor,
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: AppTheme.fontFamily,
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Text(
+                          'يرجى الانتظار قليلاً',
+                          style: TextStyle(
+                            color: AppTheme.primarySwatch.shade700,
+                            fontSize: 16,
+                            fontFamily: AppTheme.fontFamily,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Container(
+                          width: _screenUtil.screenWidth * 0.6,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: LinearProgressIndicator(
+                            backgroundColor: Colors.transparent,
+                            valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primarySwatch.shade400),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             }
@@ -241,7 +298,7 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                   if (index == 3) {
                                                                     if (await networkInfo
                                                                         .isConnected) {
-                                                                      print(controller.storyStyle);
+                                                                      print(controller.StoryTopic);
                                                                       print(controller.StoryName);
                                                                       print(controller.StoryTheme);
                                                                       print(controller.index);
