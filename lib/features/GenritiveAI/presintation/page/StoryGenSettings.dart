@@ -18,11 +18,11 @@ import '../../../../injection_container.dart';
 import '../../../../main.dart';
 import '../../../AIStory/presintation/page/AIStoryPage.dart';
 import '../../../Regestrion/date/model/userMode.dart';
-
 import '../manager/GenritiveAI_bloc.dart';
 import 'PageSix.dart';
 import 'PageOne.dart';
 import 'PageFour.dart';
+import 'StoryStylePage.dart';
 
 class StoryGenSettings extends StatefulWidget {
   int index;
@@ -36,7 +36,9 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
   List<Widget> onboardingList = [
     PageOne(),
     PageSix(),
+    StoryStylePage(),
     PageFour(),
+
   ];
   ScreenUtil _screenUtil = ScreenUtil();
   CharactersList CharactersListobj = CharactersList();
@@ -236,17 +238,17 @@ class _StoryGenSettingsState extends State<StoryGenSettings> {
                                                                 if (_formKey
                                                                     .currentState!
                                                                     .validate()) {
-                                                                  if (index == 2) {
+                                                                  if (index == 3) {
                                                                     if (await networkInfo
                                                                         .isConnected) {
-                                                                      print(controller.StoryTopic);
+                                                                      print(controller.storyStyle);
                                                                       print(controller.StoryName);
                                                                       print(controller.StoryTheme);
                                                                       print(controller.index);
                                                                       BlocProvider.of<GenritiveAIBloc>(
                                                                           _context)
                                                                           .add(
-                                                                          GenritiveAIStory(hero_name: controller.StoryName!, painting_style: controller.StoryTheme!,story_topic: controller.StoryTopic!));
+                                                                          GenritiveAIStory(hero_name: controller.StoryName!, painting_style: controller.storyStyle,story_topic: controller.StoryTheme!));
                                                                     } else {
                                                                       showImagesDialog(
                                                                           context,

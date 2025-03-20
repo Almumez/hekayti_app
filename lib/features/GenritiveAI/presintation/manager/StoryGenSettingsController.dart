@@ -14,6 +14,9 @@ TextEditingController   StoryNameController=TextEditingController();
 TextEditingController   StoryTopicController=TextEditingController();
 
 int index=0;
+int storyStyleIndex = 0;
+String storyStyle = '';
+
   @override
   void onInit() {
     super.onInit();

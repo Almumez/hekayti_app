@@ -1,6 +1,3 @@
-import 'dart:isolate';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,19 +12,39 @@ import '../../../../core/widgets/CustomCharacters.dart';
 import '../Widget/StoryThemeWidget.dart';
 import '../manager/StoryGenSettingsController.dart';
 
-class PageSix extends StatefulWidget {
-  const PageSix({Key? key}) : super(key: key);
+class StoryStylePage extends StatefulWidget {
+  const StoryStylePage({Key? key}) : super(key: key);
 
   @override
-  State<PageSix> createState() => _PageSixState();
+  State<StoryStylePage> createState() => _StoryStylePageState();
 }
 
-class _PageSixState extends State<PageSix> {
+class _StoryStylePageState extends State<StoryStylePage> {
   ScreenUtil screenUtil = ScreenUtil();
+  final List<Map<String, String>> storyStyleList = [
+    {
+      'name': 'ثلاثي الأبعاد',
+      'image': 'assets/images/style6.png', // صورة الأطفال في الحقل
+    },
+    {
+      'name': 'ثلاثي الأبعاد',
+      'image': 'assets/images/style5.png', // صورة الأطفال يلعبون بالصاروخ
+    },
+    {
+      'name': 'خيالي',
+      'image': 'assets/images/style3.png', // صورة الساحر
+    },
+    {
+      'name': 'بكسل آرت',
+      'image': 'assets/images/style2.png', // صورة الرسام البكسل
+    },
+    {
+      'name': 'واقعي',
+      'image': 'assets/images/style1.png', // صورة الطائر مع الزهور
+    },
+  ];
+
   @override
-  CharactersList CharactersListlist = CharactersList();
-
-
   Widget build(BuildContext context) {
     screenUtil.init(context);
     return GetBuilder<StoryGenSettingsController>(
@@ -38,7 +55,7 @@ class _PageSixState extends State<PageSix> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SizedBox(height: 15,),
-            Text('في اي عالم تريد أن تعيش قصتك؟', style: AppTheme.textTheme.displayLarge),
+            Text('اختر أسلوب الرسم لقصتك:', style: AppTheme.textTheme.displayLarge),
             SizedBox(height: 15,),
 
             Container(
@@ -46,23 +63,22 @@ class _PageSixState extends State<PageSix> {
               width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: CharactersListlist.StoryThemeList.length,
+                itemCount: storyStyleList.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: StoryThemeWidget(
-                      name:CharactersListlist.StoryThemeList[index]['name'].toString() ,
-                      image:
-                          CharactersListlist.StoryThemeList[index]['image'].toString(),
+                      name: storyStyleList[index]['name'].toString(),
+                      image: storyStyleList[index]['image'].toString(),
                       onTap: () async {
-                        controller.StoryThemeIndex = index;
-                        controller.StoryTheme=CharactersListlist.StoryThemeList[index]['name'].toString();
+                        controller.storyStyleIndex = index;
+                        controller.storyStyle = storyStyleList[index]['name'].toString();
                         controller.update();
-                        print( controller.StoryTheme);
-                        print(  controller.StoryThemeIndex);
+                        print(controller.storyStyle);
+                        print(controller.storyStyleIndex);
                       },
                       isSelected:
-                          controller.StoryThemeIndex == index ? true : false,
+                          controller.storyStyleIndex == index ? true : false,
                     ),
                   );
                 },
@@ -76,7 +92,6 @@ class _PageSixState extends State<PageSix> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -84,4 +99,4 @@ class _PageSixState extends State<PageSix> {
   void dispose() {
     super.dispose();
   }
-}
+} 

@@ -84,30 +84,30 @@ class _PageFourState extends State<PageFour> {
                       type: TextInputType.text,
                     ),
                     
-                    SizedBox(
-                      height: screenUtil.screenHeight * .05,
-                    ),
-                    Text('قم بإدخال عنوان القصة:',
-                        style: AppTheme.textTheme.displaySmall),
-                    SizedBox(
-                      height: screenUtil.screenHeight * .05,
-                    ),
-                    CustomField(
-                      size: 200,
-                      onChanged: (value) {
-                        controller.StoryTopic = value.toString();
-                        controller.update();
-                      },
-                      valdution: (value) {
-                        if (value.toString().isEmpty) {
-                          return 'يرجى منك ادخال عنوان القصة ';
-                        }
-                        return null;
-                      },
-                      controler: controller.StoryTopicController,
-                      text: 'مثال  :  مغامرة في الغابة',
-                      type: TextInputType.text,
-                    ),
+                    // SizedBox(
+                    //   height: screenUtil.screenHeight * .05,
+                    // ),
+                    // Text('قم بإدخال عنوان القصة:',
+                    //     style: AppTheme.textTheme.displaySmall),
+                    // SizedBox(
+                    //   height: screenUtil.screenHeight * .05,
+                    // ),
+                    // CustomField(
+                    //   size: 200,
+                    //   onChanged: (value) {
+                    //     controller.StoryTopic = value.toString();
+                    //     controller.update();
+                    //   },
+                    //   valdution: (value) {
+                    //     if (value.toString().isEmpty) {
+                    //       return 'يرجى منك ادخال عنوان القصة ';
+                    //     }
+                    //     return null;
+                    //   },
+                    //   controler: controller.StoryTopicController,
+                    //   text: 'مثال  :  مغامرة في الغابة',
+                    //   type: TextInputType.text,
+                    // ),
                     
                     //
                     // Text('قم برفع صورة بطل قصتك:',
