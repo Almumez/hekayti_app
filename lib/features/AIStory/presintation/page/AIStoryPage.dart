@@ -87,6 +87,12 @@ class _AIStoryPageState extends State<AIStoryPage> {
     super.initState();
     initUser();
     initGoogle();
+    // Add player completion listener
+    player.onPlayerComplete.listen((event) {
+      setState(() {
+        isSpack = !isSpack;
+      });
+    });
     // Simulate loading time for demonstration
     Future.delayed(Duration(seconds: 2), () {
       if (mounted) {
@@ -97,15 +103,15 @@ class _AIStoryPageState extends State<AIStoryPage> {
     });
   }
 
-  @override
-  void didChangeDependencies() {
-    player.onPlayerComplete.listen((event) {
-      setState(() {
-        isSpack = !isSpack;
-      });
-    });
-    super.didChangeDependencies();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   player.onPlayerComplete.listen((event) {
+  //     setState(() {
+  //       isSpack = !isSpack;
+  //     });
+  //   });
+  //   super.didChangeDependencies();
+  // }
 
   initGoogle() async {
     // Initialize the TTS service
@@ -220,41 +226,36 @@ class _AIStoryPageState extends State<AIStoryPage> {
     }
     
     final status = await Permission.storage.request();
-    final status2 =await Permission.accessMediaLocation.request();
-    if (status.isGranted||status2.isGranted) {
+    final status2 = await Permission.accessMediaLocation.request();
+    if (status.isGranted || status2.isGranted) {
       setState(() {
-        isSpack = !isSpack;
+        isSpack = false;  // Set to false when starting playback
       });
-      
-      if (isSpack) {
-        // If we're turning speech on, convert text to speech and play it
-        try {
-          final storyText = "No matching voice found, using default voice" ?? "لا يوجد نص للقراءة";
-          
-          TtsParamsGoogle ttsParams = TtsParamsGoogle(
-            voice: selectedVoice!,
-            audioFormat: AudioOutputFormatGoogle.mp3,
-            text: storyText,
-            rate: 'slow', // Optional
-            pitch: 'default' // Optional
-          );
-          
-          final ttsResponse = await TtsGoogle.convertTts(ttsParams);
-          
-          final audioBytes = ttsResponse.audio.buffer.asUint8List();
-          final tempDir = await getTemporaryDirectory();
-          final tempPath = '${tempDir.path}/story_audio.mp3';
-          final file = File(tempPath);
-          await file.writeAsBytes(audioBytes);
-          
-          await player.play(DeviceFileSource(tempPath));
-        } catch (e) {
-          setState(() {
-            isSpack = false;
-          });
-        }
-      } else {
-        await player.stop();
+
+      try {
+        final storyText = "No matching voice found, using default voice" ?? "لا يوجد نص للقراءة";
+        
+        TtsParamsGoogle ttsParams = TtsParamsGoogle(
+          voice: selectedVoice!,
+          audioFormat: AudioOutputFormatGoogle.mp3,
+          text: storyText,
+          rate: 'slow',
+          pitch: 'default'
+        );
+        
+        final ttsResponse = await TtsGoogle.convertTts(ttsParams);
+        
+        final audioBytes = ttsResponse.audio.buffer.asUint8List();
+        final tempDir = await getTemporaryDirectory();
+        final tempPath = '${tempDir.path}/story_audio.mp3';
+        final file = File(tempPath);
+        await file.writeAsBytes(audioBytes);
+        
+        await player.play(DeviceFileSource(tempPath));
+      } catch (e) {
+        setState(() {
+          isSpack = true;  // Reset to true if there's an error
+        });
       }
     }
   }
