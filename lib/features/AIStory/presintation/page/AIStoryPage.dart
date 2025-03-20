@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:cloud_text_to_speech/cloud_text_to_speech.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ import '../../../../main.dart';
 import '../../../Home/presintation/page/HomePage.dart';
 import '../../../Regestrion/date/model/userMode.dart';
 import '../manager/AIStory_bloc.dart';
+
 
 class AIStoryPage extends StatefulWidget {
   final String storyId;
@@ -78,11 +80,13 @@ class _AIStoryPageState extends State<AIStoryPage> {
   List<TargetFocus> targets = [];
   bool tutorialShown = false;
 
+  dynamic selectedVoice;
+
   @override
   void initState() {
     super.initState();
     initUser();
-    
+    initGoogle();
     // Simulate loading time for demonstration
     Future.delayed(Duration(seconds: 2), () {
       if (mounted) {
@@ -101,6 +105,32 @@ class _AIStoryPageState extends State<AIStoryPage> {
       });
     });
     super.didChangeDependencies();
+  }
+
+  initGoogle() async {
+    // Initialize the TTS service
+    TtsGoogle.init(
+      params: InitParamsGoogle(apiKey: "AIzaSyA77K8DxXCKylWJStwPLdcW3NF_M6TQ6rk"),
+      withLogs: true,
+    );
+
+    // Fetch available voices
+    final voicesResponse = await TtsGoogle.getVoices();
+    final voices = voicesResponse.voices;
+
+    // Select an Arabic voice
+    try {
+      selectedVoice = voices.firstWhere(
+        (voice) => voice.locale.code.startsWith("en-US"),
+        orElse: () {
+          print("No matching voice found, using default voice.");
+          // Replace with your default voice
+          return voices.first;
+        },
+      );
+    } catch (e) {
+      print("Error in initGoogle: $e");
+    }
   }
 
   @override
@@ -184,18 +214,48 @@ class _AIStoryPageState extends State<AIStoryPage> {
   }
 
   // Audio playback for stories
-  Future<void> playAudio({String? audioUrl}) async {
-    if (audioUrl == null) return;
+  Future<void> playAudio({String? audioUrl, String? text}) async {
+    if (text == null && audioUrl == null) {
+      return;
+    }
     
     final status = await Permission.storage.request();
-    if (status.isGranted) {
-      // For network audio, we would use:
-      // await player.play(UrlSource(DataSourceURL.baseURL + audioUrl));
-      
-      // For now we'll just toggle the icon state
+    final status2 =await Permission.accessMediaLocation.request();
+    if (status.isGranted||status2.isGranted) {
       setState(() {
         isSpack = !isSpack;
       });
+      
+      if (isSpack) {
+        // If we're turning speech on, convert text to speech and play it
+        try {
+          final storyText = "No matching voice found, using default voice" ?? "لا يوجد نص للقراءة";
+          
+          TtsParamsGoogle ttsParams = TtsParamsGoogle(
+            voice: selectedVoice!,
+            audioFormat: AudioOutputFormatGoogle.mp3,
+            text: storyText,
+            rate: 'slow', // Optional
+            pitch: 'default' // Optional
+          );
+          
+          final ttsResponse = await TtsGoogle.convertTts(ttsParams);
+          
+          final audioBytes = ttsResponse.audio.buffer.asUint8List();
+          final tempDir = await getTemporaryDirectory();
+          final tempPath = '${tempDir.path}/story_audio.mp3';
+          final file = File(tempPath);
+          await file.writeAsBytes(audioBytes);
+          
+          await player.play(DeviceFileSource(tempPath));
+        } catch (e) {
+          setState(() {
+            isSpack = false;
+          });
+        }
+      } else {
+        await player.stop();
+      }
     }
   }
 
@@ -466,8 +526,13 @@ class _AIStoryPageState extends State<AIStoryPage> {
                                       CustomIconWidget(
                                         key: keyAudio,
                                         onTap: () {
-                                          // Audio playback would go here
-                                          playAudio(audioUrl: "audio_url_here");
+                                          // Get the current slide's text to convert to speech
+                                          
+                              
+                                    
+                                              playAudio(text: slides[currentPage - 1].text);
+                                            
+                                          
                                         },
                                         primaryColor: Colors.white,
                                         primaryIcon: Icon(
