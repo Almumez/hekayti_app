@@ -172,14 +172,14 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
                   shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: AppTheme.primaryColor.withOpacity(0.3),
-                      blurRadius: 12,
+                      color: Colors.white,
+                      blurRadius: 10,
                       spreadRadius: _scaleAnimation.value * 2,
                     ),
                   ],
                 ),
                 child: FloatingActionButton(
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppTheme.primaryColor,
                   key: keyCreateStory,
                   onPressed: () {
                     Navigator.push(
@@ -189,18 +189,11 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
                       ),
                     );
                   },
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    margin:   EdgeInsets.all(3),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(
-                        color: AppTheme.primaryColor,
-                        width: 3,
-
-                      ),
-                    ),
-                    child: Image.asset("assets/images/GenritiveAI.png", height: 40, width: 40),
+                  child: Image.asset(
+                    "assets/images/GenritiveAI.png",
+                    height: 50,
+                    width: 50,
+                    color: Colors.white,
                   ),
                 ),
               ),
