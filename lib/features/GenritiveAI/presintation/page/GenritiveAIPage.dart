@@ -173,7 +173,7 @@ class _GenritiveAIPageState extends State<GenritiveAIPage> with SingleTickerProv
                   boxShadow: [
                     BoxShadow(
                       color: Colors.white,
-                      blurRadius: 10,
+                      blurRadius: 12,
                       spreadRadius: _scaleAnimation.value * 2,
                     ),
                   ],
