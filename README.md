@@ -1,6 +1,17 @@
-# Hakaity App
-Application of children's stories to teach children to read
+# Hakaity App (حكايتي)
 
+A Flutter application designed to teach children how to read through interactive stories and voice recognition.
+
+## 🌟 Features
+
+- 📚 Interactive children's stories
+- 🎯 Reading accuracy verification
+- 📊 Progress tracking and reports
+- 👤 User authentication (Login/Signup)
+- 🔍 Story search functionality
+- 🎙️ Voice recording and playback
+- 👨‍👩‍👧‍👦 Parent dashboard and settings
+- 📈 Detailed statistics and progress reports
 
 
 ## Overview
@@ -16,28 +27,82 @@ Some other features are as following:
 - View detailed reports and statistics about stories.
 - View progress.
 
+## 📱 Screenshots
 
+View the app screenshots [here](https://github.com/MaryamHajeb/Graduation-Project/tree/main/Screenshots)
 
+## 🚀 Getting Started
 
-##  Screenshots
+### Prerequisites
 
-   https://github.com/MaryamHajeb/Graduation-Project/tree/main/Screenshots
+- Flutter SDK (managed via FVM)
+- Android Studio / VS Code
+- Git
 
-## Project Setup
+### Installation
 
-### Clone and install
-
-Clone this repository and import into Android Studio
-```
+1. Clone the repository:
+```bash
 git clone https://github.com/MaryamHajeb/Graduation-Project.git
+cd Graduation-Project
 ```
 
+2. Install FVM (Flutter Version Management):
+```bash
+dart pub global activate fvm
+```
 
-## Built With
-- Flutter
-- Bloc State Management
-- Sqlflite
-- google_speech package 
-- Google Speech to text
+3. Install the required Flutter version using FVM:
+```bash
+fvm install
+```
+
+4. Get project dependencies:
+```bash
+fvm flutter pub get
+```
+
+### Running the App
+
+1. Open the project in your preferred IDE (Android Studio or VS Code)
+
+2. Run the app using FVM:
+```bash
+fvm flutter run
+```
+
+## 🛠️ Built With
+
+- **Flutter** - UI Framework
+- **Bloc** - State Management
+- **SQLite** - Local Database
+- **google_speech** - Speech Recognition
+- **Google Speech to Text** - Voice Processing
+
+## 📦 Project Structure
+
+```
+lib/
+├── bloc/          # State management
+├── models/        # Data models
+├── screens/       # UI screens
+├── services/      # Business logic
+└── utils/         # Helper functions
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
 ---
+
+Made with ❤️ for children's education
+
+
+
+
 
