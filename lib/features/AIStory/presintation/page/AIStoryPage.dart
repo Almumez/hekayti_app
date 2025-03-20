@@ -127,7 +127,7 @@ class _AIStoryPageState extends State<AIStoryPage> {
     // Select an Arabic voice
     try {
       selectedVoice = voices.firstWhere(
-        (voice) => voice.locale.code.startsWith("en-US"),
+        (voice) => voice.locale.code.startsWith("ar-"),
         orElse: () {
           print("No matching voice found, using default voice.");
           // Replace with your default voice
@@ -233,8 +233,8 @@ class _AIStoryPageState extends State<AIStoryPage> {
       });
 
       try {
-        final storyText = "No matching voice found, using default voice" ?? "لا يوجد نص للقراءة";
-        
+        final storyText = text ?? "لا يوجد نص للقراءة";
+        print(storyText);
         TtsParamsGoogle ttsParams = TtsParamsGoogle(
           voice: selectedVoice!,
           audioFormat: AudioOutputFormatGoogle.mp3,
