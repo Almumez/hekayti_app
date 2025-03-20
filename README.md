@@ -29,7 +29,7 @@ Some other features are as following:
 
 ## 📱 Screenshots
 
-View the app screenshots [here](https://github.com/MaryamHajeb/Graduation-Project/tree/main/Screenshots)
+View the app screenshots [here](https://github.com/Almumez/hekayti_app/tree/main/Screenshots)
 
 ## 🚀 Getting Started
 
