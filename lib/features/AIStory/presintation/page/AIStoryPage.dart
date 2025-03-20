@@ -82,17 +82,27 @@ class _AIStoryPageState extends State<AIStoryPage> {
 
   dynamic selectedVoice;
 
+  bool isTtsInitialized = false;
+
+  Future<void> ensureTtsInitialized() async {
+    if (!isTtsInitialized) {
+      await initGoogle();
+      isTtsInitialized = true;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     initUser();
-    initGoogle();
+    
     // Add player completion listener
     player.onPlayerComplete.listen((event) {
       setState(() {
         isSpack = !isSpack;
       });
     });
+    
     // Simulate loading time for demonstration
     Future.delayed(Duration(seconds: 2), () {
       if (mounted) {
@@ -102,16 +112,6 @@ class _AIStoryPageState extends State<AIStoryPage> {
       }
     });
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   player.onPlayerComplete.listen((event) {
-  //     setState(() {
-  //       isSpack = !isSpack;
-  //     });
-  //   });
-  //   super.didChangeDependencies();
-  // }
 
   initGoogle() async {
     try {
@@ -244,6 +244,9 @@ class _AIStoryPageState extends State<AIStoryPage> {
       });
 
       try {
+        // تأكد من تهيئة TTS قبل الاستخدام
+        await ensureTtsInitialized();
+        
         final storyText = text ?? "لا يوجد نص للقراءة";
         print(storyText);
         TtsParamsGoogle ttsParams = TtsParamsGoogle(
@@ -252,7 +255,6 @@ class _AIStoryPageState extends State<AIStoryPage> {
           text: storyText,
           rate: 'slow',
           pitch: 'default'
-
         );
         
         final ttsResponse = await TtsGoogle.convertTts(ttsParams);
