@@ -114,28 +114,39 @@ class _AIStoryPageState extends State<AIStoryPage> {
   // }
 
   initGoogle() async {
-    // Initialize the TTS service
-    TtsGoogle.init(
-      params: InitParamsGoogle(apiKey: "AIzaSyA77K8DxXCKylWJStwPLdcW3NF_M6TQ6rk"),
-      withLogs: true,
-    );
-
-    // Fetch available voices
-    final voicesResponse = await TtsGoogle.getVoices();
-    final voices = voicesResponse.voices;
-
-    // Select an Arabic voice
     try {
+      // Initialize the TTS service
+      TtsGoogle.init(
+        params: InitParamsGoogle(apiKey: "AIzaSyA77K8DxXCKylWJStwPLdcW3NF_M6TQ6rk"),
+        withLogs: true,
+      );
+
+      // Fetch available voices
+      final voicesResponse = await TtsGoogle.getVoices();
+      final voices = voicesResponse.voices;
+
+      // Print available voices for debugging
+      print("Available voices:$voices");
+      voices.forEach((voice) {
+        print("Voice: ${voice.name}, Locale: ${voice.locale.code}");
+      });
+
+      // Try to find a female Arabic voice
       selectedVoice = voices.firstWhere(
-        (voice) => voice.locale.code.startsWith("ar-"),
+        (voice) => voice.name == 'Sophia' || voice.name == 'Amelia' || 
+                   voice.name == 'Ava' || voice.name == 'Emily' ||
+                   voice.name == 'Isabella' || voice.name == 'Gianna' ||
+                   voice.name == 'Avery' || voice.name == 'Evelyn',
         orElse: () {
-          print("No matching voice found, using default voice.");
-          // Replace with your default voice
+          print("لم يتم العثور على صوت أنثوي، سيتم استخدام الصوت الافتراضي");
           return voices.first;
         },
       );
+
+      print("تم اختيار الصوت: ${selectedVoice.name}");
+
     } catch (e) {
-      print("Error in initGoogle: $e");
+      print("خطأ في initGoogle: $e");
     }
   }
 
@@ -241,6 +252,7 @@ class _AIStoryPageState extends State<AIStoryPage> {
           text: storyText,
           rate: 'slow',
           pitch: 'default'
+
         );
         
         final ttsResponse = await TtsGoogle.convertTts(ttsParams);
@@ -528,12 +540,7 @@ class _AIStoryPageState extends State<AIStoryPage> {
                                         key: keyAudio,
                                         onTap: () {
                                           // Get the current slide's text to convert to speech
-                                          
-                              
-                                    
-                                              playAudio(text: slides[currentPage - 1].text);
-                                            
-                                          
+                                              playAudio(text: slides[currentPage].text);
                                         },
                                         primaryColor: Colors.white,
                                         primaryIcon: Icon(
